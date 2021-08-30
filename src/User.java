@@ -3,7 +3,14 @@ public class User {
 	private String userName;
 	private String password;
 	private String name;
-
+	
+	public User(String[] details) {
+		this.userName = details[0];
+		this.password = details[1];
+		this.name = details[2];
+	}
+	public User() {}
+	
 	public String getUserName() {
 		return userName;
 	}
