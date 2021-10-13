@@ -62,7 +62,39 @@ public class UserService {
 				System.out.println(english.invalidLogin);
 			}
 			continue;
-		}
+			}	
 	}
 
+	
+	if (user.getRole().equals("super_user")) {
+		int superUserSelector = userService.userGuiSelector(language.superUserGui);
+			switch (superUserSelector) {
+			
+			case 0: String otherUserSelected = userService.askUser(language.changeUser);	
+//				compare username to all of the users in the list. change to that user.
+			case 1: String changeUsername = userService.askUser(language.updateUserName);
+//			overwrite method.
+			case 2: String changePassword = userService.askUser(language.upatePassword);
+//			overwrite method on password
+			case 3: String changeUserName = userService.askUser(language.updateName);
+//			Overwrite method on name
+			case 4: System.exit(1);
+			default: System.out.println(language.invalidSelection);
+				return;
+			}
+		}else {
+			int normalUserSelector = userService.userGuiSelector(language.normalUserGui);
+			switch (normalUserSelector) {
+			case 1: String changeUsername = userService.askUser(language.updateUserName);
+//			overwrite method.
+			case 2: String changePassword = userService.askUser(language.upatePassword);
+//			overwrite method on password
+			case 3: String changeUserName = userService.askUser(language.updateName);
+//			Overwrite method on name
+			case 4: System.exit(1);
+			default: System.out.println(language.invalidSelection);
+				return;
+			}
+		}
 }
+
