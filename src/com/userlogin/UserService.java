@@ -24,6 +24,10 @@ public class UserService {
 		user.setPassword(password);
 		return user;
 	}
+//	method user input String WELCOME_USER = "Welcome " + user.getName();
+	public void welcomeUser(User user) {
+		System.out.println("Welcome " + user.getName());
+	}
 
 	public User[] getUsers() {
 		return users;
@@ -42,59 +46,61 @@ public class UserService {
 		return null;
 	}
 
-	public void manageLoginAttempts(English english, User loggedInUser) throws IOException {
+	public void manageLoginAttempts(User loggedInUser) throws IOException {
 
 		UserService userService1 = new UserService();
 
 		for (int i = 0; i < 6; i++) {
 			if (i == 5) {
-				System.out.println(english.tooManyAttempts);
+				System.out.println(English.TOO_MANY_ATTEMPTS);
 				System.exit(i);
 			}
-			String inputUserName = userService1.askUser(english.enterEmail);
-			String inputPassword = userService1.askUser(english.enterPassword);
+			String inputUserName = userService1.askUser(English.ENTER_EMAIL);
+			String inputPassword = userService1.askUser(English.ENTER_PASSWORD);
 
 			loggedInUser = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
 			if (loggedInUser != null) {
-				System.out.println("Welcome" + loggedInUser.getName());
+				welcomeUser(loggedInUser);
 				break;
 			} else {
-				System.out.println(english.invalidLogin);
+				System.out.println(English.INVALID_LOGIN);
 			}
 			continue;
 			}	
 	}
 
-	
+	public void userOptions(User user) {
+		
 	if (user.getRole().equals("super_user")) {
-		int superUserSelector = userService.userGuiSelector(language.superUserGui);
+		int superUserSelector = userGuiSelector(English.SUPER_USER_GUI);
 			switch (superUserSelector) {
 			
-			case 0: String otherUserSelected = userService.askUser(language.changeUser);	
+			case 0: String otherUserSelected = askUser(English.CHANGE_USER);	
 //				compare username to all of the users in the list. change to that user.
-			case 1: String changeUsername = userService.askUser(language.updateUserName);
+			case 1: String changeUsername = askUser(English.UPDATE_USER_NAME);
 //			overwrite method.
-			case 2: String changePassword = userService.askUser(language.upatePassword);
+			case 2: String changePassword = askUser(English.UPDATE_PASSWORD);
 //			overwrite method on password
-			case 3: String changeUserName = userService.askUser(language.updateName);
+			case 3: String changeUserName = askUser(English.UPDATE_USER_NAME);
 //			Overwrite method on name
 			case 4: System.exit(1);
-			default: System.out.println(language.invalidSelection);
+			default: System.out.println(English.INVALID_SELECTION);
 				return;
 			}
 		}else {
-			int normalUserSelector = userService.userGuiSelector(language.normalUserGui);
+			int normalUserSelector = userGuiSelector(English.NORMAL_USER_GUI);
 			switch (normalUserSelector) {
-			case 1: String changeUsername = userService.askUser(language.updateUserName);
+			case 1: String changeUsername = askUser(English.UPDATE_USER_NAME);
 //			overwrite method.
-			case 2: String changePassword = userService.askUser(language.upatePassword);
+			case 2: String changePassword = askUser(English.UPDATE_PASSWORD);
 //			overwrite method on password
-			case 3: String changeUserName = userService.askUser(language.updateName);
+			case 3: String changeUserName = askUser(English.UPDATE_USER_NAME);
 //			Overwrite method on name
 			case 4: System.exit(1);
-			default: System.out.println(language.invalidSelection);
+			default: System.out.println(English.INVALID_SELECTION);
 				return;
 			}
 		}
+	}
 }
 

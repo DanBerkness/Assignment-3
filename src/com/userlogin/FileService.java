@@ -13,10 +13,10 @@ public class FileService {
 		try {
 			fileReader = new BufferedReader(new FileReader(filepath));
 			String line;
-			users = new User[4];
+			users = new User[20];
 			while ((line = fileReader.readLine()) != null) {
 				String[] dataLine = new String[4];
-				dataLine = line.split(",");
+				dataLine = line.split(", ");
 				User newUser = new User(dataLine);
 				users[userCtr] = newUser;
 				userCtr++;
