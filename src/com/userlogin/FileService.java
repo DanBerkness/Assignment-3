@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FileService {
 
@@ -10,6 +11,8 @@ public class FileService {
 		User[] users = null;
 		BufferedReader fileReader = null;
 		int userCtr = 0;
+		
+		
 		try {
 			fileReader = new BufferedReader(new FileReader(filepath));
 			String line;
@@ -17,9 +20,16 @@ public class FileService {
 			while ((line = fileReader.readLine()) != null) {
 				String[] dataLine = new String[4];
 				dataLine = line.split(", ");
-				User newUser = new User(dataLine);
-				users[userCtr] = newUser;
+				User user = new User(dataLine);
+				user.setUserName(dataLine[0]);
+				user.setPassword(dataLine[1]);
+				user.setName(dataLine[2]);
+				user.setRole(dataLine[3]);
+				users[userCtr] = user;
+				SortUsers sortUsers = new SortUsers();
+				sortUsers.superUsers(user);
 				userCtr++;
+				
 			}
 		
 	} catch (FileNotFoundException e) {
@@ -32,6 +42,7 @@ public class FileService {
 			e.printStackTrace();
 		}
 	}
+		System.out.println("there should be users");
 		return users;
 }
 

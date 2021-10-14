@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class FileOutputApplication {
+public class FileOutputClass {
 
-	public static void main(String[] args) throws IOException {
+	public static void FileOutput() throws IOException {
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter("data.txt"));

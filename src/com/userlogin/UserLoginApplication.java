@@ -6,14 +6,14 @@ public class UserLoginApplication {
 
 	public static void main(String[] args) throws IOException {
 // 		initializing objects
-		User loggedInUser = null;
+		User user = null;
 		UserService userService1 = new UserService();
 		
 		
 		
 		userService1.setUsers(FileService.populateUsersFromFile(FileInterface.standardFileName));
-		userService1.manageLoginAttempts(english, loggedInUser);
+		userService1.manageLoginAttempts(user, userService1);
 //		NOW WE HAVE A USER!!!
-		
+		userService1.userOptions(user);
 	}
 }

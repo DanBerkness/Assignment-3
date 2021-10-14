@@ -1,6 +1,7 @@
 package com.userlogin;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserService {
@@ -24,10 +25,8 @@ public class UserService {
 		user.setPassword(password);
 		return user;
 	}
-//	method user input String WELCOME_USER = "Welcome " + user.getName();
-	public void welcomeUser(User user) {
-		System.out.println("Welcome " + user.getName());
-	}
+	
+
 
 	public User[] getUsers() {
 		return users;
@@ -37,19 +36,16 @@ public class UserService {
 		this.users = users;
 	}
 
-	public User getUserByUsernameAndPassword(String username, String password) {
+	public User getUserByUsernameAndPassword(String userName, String password) {
 		for (User user : users) {
-			if (username.equalsIgnoreCase(user.getUserName()) && password.equals(user.getPassword())) {
+			if (userName.equalsIgnoreCase(user.getUserName()) && password.equals(user.getPassword())) {
 				return user;
 			}
 		}
 		return null;
 	}
 
-	public void manageLoginAttempts(User loggedInUser) throws IOException {
-
-		UserService userService1 = new UserService();
-
+	public void manageLoginAttempts(User user, UserService userService1) throws IOException {
 		for (int i = 0; i < 6; i++) {
 			if (i == 5) {
 				System.out.println(English.TOO_MANY_ATTEMPTS);
@@ -58,16 +54,20 @@ public class UserService {
 			String inputUserName = userService1.askUser(English.ENTER_EMAIL);
 			String inputPassword = userService1.askUser(English.ENTER_PASSWORD);
 
-			loggedInUser = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
-			if (loggedInUser != null) {
-				welcomeUser(loggedInUser);
+			user = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
+			if (user != null) {
+				System.out.println("Welcome " + user.getName());
+				if (user.getRole().equals("super_user")) {
+					System.out.println("super");
+				}
 				break;
 			} else {
 				System.out.println(English.INVALID_LOGIN);
 			}
 			continue;
 			}	
-	}
+		}
+	
 
 	public void userOptions(User user) {
 		
