@@ -1,26 +1,18 @@
 package com.userlogin;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SortUsers {
-	public void superUsers(User user) {
+	public void superUsers(User user, String[] dataLine, User[] users, int userCtr) {
 		
 		if (user.getRole().equals("super_user")) {
-			ArrayList superUsers = new ArrayList();
-			superUsers.add(user.getName());
-			superUsers.add(user.getPassword());
-			superUsers.add(user.getUserName());
-			superUsers.add(user.getRole());
-			System.out.println(superUsers);
-			
-			
-		
-			
+			users[userCtr++]= new SuperUser(dataLine[0], dataLine[1], dataLine[2]);
+			Arrays.sort(dataLine);
+			Boolean isSuper = true;
 		}else {
-			System.out.println(user.getName() + " Is a normal user");
+			users[userCtr++]= new NormalUser(dataLine[0], dataLine[1], dataLine[2]);
+			Arrays.sort(dataLine);
 		}
-//		System.out.println(English.NORMAL_USER_GUI);
-//		System.out.println(English.SUPER_USER_GUI);
 		
 	} 
 }

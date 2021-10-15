@@ -27,7 +27,7 @@ public class FileService {
 				user.setRole(dataLine[3]);
 				users[userCtr] = user;
 				SortUsers sortUsers = new SortUsers();
-				sortUsers.superUsers(user);
+				sortUsers.superUsers(user, dataLine, users, userCtr);
 				userCtr++;
 				
 			}
@@ -42,7 +42,6 @@ public class FileService {
 			e.printStackTrace();
 		}
 	}
-		System.out.println("there should be users");
 		return users;
 }
 

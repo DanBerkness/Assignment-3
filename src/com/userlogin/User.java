@@ -4,7 +4,7 @@ public class User {
 	private String userName;
 	private String password;
 	private String name;
-	private String role;
+	protected String role;
 	
 	public User(String[] details) {
 		this.userName = details[0];

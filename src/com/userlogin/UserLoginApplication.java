@@ -13,7 +13,7 @@ public class UserLoginApplication {
 		
 		userService1.setUsers(FileService.populateUsersFromFile(FileInterface.standardFileName));
 		userService1.manageLoginAttempts(user, userService1);
-//		NOW WE HAVE A USER!!!
 		userService1.userOptions(user);
+		System.out.println(isSuper);
 	}
 }

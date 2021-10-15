@@ -58,9 +58,8 @@ public class UserService {
 			if (user != null) {
 				System.out.println("Welcome " + user.getName());
 				if (user.getRole().equals("super_user")) {
-					System.out.println("super");
-				}
 				break;
+				}
 			} else {
 				System.out.println(English.INVALID_LOGIN);
 			}
