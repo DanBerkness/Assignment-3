@@ -1,26 +1,26 @@
 package com.userlogin;
-import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 
 public class FileOutputClass {
-
-	public static void FileOutput(User[] users) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		for (User user : users) {
-//			sb = sb + user;
+	public static void writeFile(User[] users) throws IOException {
+		BufferedWriter writer = null;
+		UserService userService1 = new UserService();
 		
-			
-		}
-		try (FileOutputStream fileOutput = new FileOutputStream(FileInterface.standardFileName);
-				ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput)){
-			objectOutput.writeObject(sb.toString());
-			
+		try {
+			writer = new BufferedWriter(new FileWriter(FileInterface.standardFileName));
+
+
+			for (User user : users) {
+				writer.write(userService1.getCurrentUser(user));
+			}
+		} finally {
+			if (writer != null) {
+				writer.close();
+			}
 		}
 	}
 }
