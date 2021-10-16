@@ -5,6 +5,6 @@ public class SuperUser extends User {
 		this.setUserName(userName);
 		this.setPassword(password);
 		this.setName(name);
-		this.role = "Super User";
+		this.role = "super_user";
 	}
 }

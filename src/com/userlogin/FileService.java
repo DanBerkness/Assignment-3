@@ -3,7 +3,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class FileService {
 
@@ -26,7 +25,7 @@ public class FileService {
 				user.setName(dataLine[2]);
 				user.setRole(dataLine[3]);
 				users[userCtr] = user;
-				SortUsers sortUsers = new SortUsers();
+				AssignUserRoles sortUsers = new AssignUserRoles();
 				sortUsers.superUsers(user, dataLine, users, userCtr);
 				userCtr++;
 				

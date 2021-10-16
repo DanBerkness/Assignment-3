@@ -1,6 +1,9 @@
 package com.userlogin;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	public static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;
 	private String name;

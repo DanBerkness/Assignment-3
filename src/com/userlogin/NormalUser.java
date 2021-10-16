@@ -5,6 +5,6 @@ public class NormalUser extends User{
 		this.setUserName(userName);
 		this.setPassword(password);
 		this.setName(name);
-		this.role = "normal user";
+		this.role = "normal_user";
 	}
 }

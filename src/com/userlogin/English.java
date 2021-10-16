@@ -1,6 +1,6 @@
 package com.userlogin;
 
-public class English {
+public final class  English {
 		
 	public static final String ENTER_EMAIL = "Enter your email: ";
 	public static final String ENTER_PASSWORD = "Enter your password";
@@ -31,6 +31,7 @@ public class English {
 	public static final String UPDATE_PASSWORD = "Please type in your new password:";
 	public static final String UPDATE_USER_NAME = "Please type in your new username:";
 	public static final String INVALID_LOGIN = "Invalid login, please try again.";
-	public static final String INVALID_SELECTION = "Please enter a number between 1 and 4:";
+	public static final String INVALID_SUPER_USER_SELECTION = "Please enter a number between 0 and 4:";
+	public static final String INVALID_NORMAL_USER_SELECTION = "Please enter a number between 0 and 3";
 		
 }
