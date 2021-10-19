@@ -18,6 +18,7 @@ public class UserService {
 
 	private User[] users = new User[4];
 
+
 	public User[] getUsers() {
 		return users;
 	}
@@ -69,16 +70,17 @@ public class UserService {
 				if (user.getRole().equals("super_user")) {
 					isSuperUser = true;
 					userOptions(user, isSuperUser);
-				}else if (isSuperUser == false) {
-					userOptions(user, isSuperUser)
+				}else if (isSuperUser == false)
+				break;
 			} else {
 				System.out.println(English.INVALID_LOGIN);
 			}
 			continue;
 		}
+	}
 
 	public void userOptions(User user, Boolean isSuperUser) {
-		if (isSuperUser == true) {
+		if (isSuperUser == true ) {
 			int superUserSelector = userGuiSelector(English.SUPER_USER_GUI);
 			switch (superUserSelector) {
 			case 0:
@@ -93,15 +95,15 @@ public class UserService {
 				}
 
 			case 1:
-				String changeUsername = askUser(English.UPDATE_USER_NAME);
-				user.setUserName(changeUsername);
-				try {
-					FileOutputClass.writeFile(users);
-				} catch (IOException e) {
-					System.out.println("Output not working");
-					e.printStackTrace();
-				}
-				break;
+					String changeUsername = askUser(English.UPDATE_USER_NAME);
+					user.setUserName(changeUsername);
+					try {
+						FileOutputClass.writeFile(users);
+						return;
+					} catch (IOException e) {
+						System.out.println("Output not working");
+						e.printStackTrace();
+					}
 			case 2:
 				String changePassword = askUser(English.UPDATE_PASSWORD);
 				user.setPassword(changePassword);
@@ -134,7 +136,7 @@ public class UserService {
 				System.out.println(English.INVALID_SUPER_USER_SELECTION);
 				return;
 			}
-		} else if (isSuperUser == false) {
+		} else if (isSuperUser == false){
 			int normalUserSelector = userGuiSelector(English.NORMAL_USER_GUI);
 			switch (normalUserSelector) {
 			case 1:
@@ -145,8 +147,7 @@ public class UserService {
 				} catch (IOException e) {
 					System.out.println("Output not working");
 					e.printStackTrace();
-				}
-				break;
+				}				break;
 			case 2:
 				String changePassword = askUser(English.UPDATE_PASSWORD);
 				user.setPassword(changePassword);
@@ -155,14 +156,14 @@ public class UserService {
 				} catch (IOException e) {
 					System.out.println("Output not working");
 					e.printStackTrace();
-				}
-				break;
+				}				break;
 			case 3:
 				String changeName = askUser(English.UPDATE_NAME);
 				user.setName(changeName);
 				try {
 					FileOutputClass.writeFile(users);
-
+				
+					
 				} catch (IOException e) {
 					System.out.println("Output not working");
 					e.printStackTrace();
@@ -176,7 +177,6 @@ public class UserService {
 			}
 		}
 	}
-
 	public String getCurrentUser(User user) {
 		return user.getUserName() + ", " + user.getPassword() + ", " + user.getName() + ", " + user.getRole() + "\n";
 	}
