@@ -1,0 +1,11 @@
+I have an error in my GUI loop. If you enter into the super user switch case as a valid user, it will prompt you to choose from some options.
+
+type: 2 to change password.
+It will ask for the change, and then re-prompt you to log in. 
+If you log in again as a super user, it wioll work.
+if you type 3, it will prompt you to change passsword.
+Again it will apply the change, and prompt you to log in again.
+
+I believe the issue is with breaking out of the loop randomly.
+
+Let me know what you think the problem may be!
