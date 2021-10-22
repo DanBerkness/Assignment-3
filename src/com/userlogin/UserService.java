@@ -33,25 +33,30 @@ public class UserService {
 
 	public User getUserByUsernameAndPassword(String userName, String password) {
 		for (User user : users) {
+			user.getUserName();
 			if (userName.equalsIgnoreCase(user.getUserName()) && password.equals(user.getPassword())) {
+				userName = user.getName();
 				return user;
 			}
 		}
 		return null;
 	}
 
-	public User getUserByUserName(String userName, Boolean isSuperUser, Boolean initialLogin) {
+	public User getUserByUserName(SuperUser superUser, NormalUser normalUser, String userName, Boolean isSuperUser) {
 		for (User user : users) {
+			System.out.println(userName);
 			if (userName.equalsIgnoreCase(user.getUserName())) {
 				if (user != null) {
-					initialLogin = false;
-					System.out.println("Welcome " + user.getName());
 					if (user.getRole().equals("super_user")) {
+						System.out.println("Welcome Super user " + superUser.getName());
+						superUser = new SuperUser(superUser.getUserName(), superUser.getPassword(), superUser.getName());
 						isSuperUser = true;
-						userOptions(user, isSuperUser, initialLogin);
+						userOptions(superUser, normalUser, userName, isSuperUser);
 					} else {
+						System.out.println("Welcome " + normalUser.getName());
 						isSuperUser = false;
-						userOptions(user, isSuperUser, initialLogin);
+						normalUser = new NormalUser(normalUser.getUserName(), normalUser.getPassword(), normalUser.getName());
+						userOptions(superUser, normalUser, userName, isSuperUser);
 					}
 					return user;
 				}
@@ -60,7 +65,7 @@ public class UserService {
 		return null;
 	}
 
-	public void manageLoginAttempts(User user, UserService userService1, Boolean isSuperUser, Boolean initialLogin) throws IOException {
+	public void manageLoginAttempts(SuperUser superUser, NormalUser normalUser, User user, String userName, UserService userService1, Boolean isSuperUser) throws IOException {
 		for (int i = 0; i < 6; i++) {
 			if (i == 5) {
 				System.out.println(English.TOO_MANY_ATTEMPTS);
@@ -71,11 +76,13 @@ public class UserService {
 
 			user = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
 			if (user != null) {
-				initialLogin = false;
-				System.out.println("Welcome " + user.getName());
 				if (user.getRole().equals("super_user")) {
+					System.out.println("Welcome super user " + user.getName());
 					isSuperUser = true;
-					userOptions(user, isSuperUser, initialLogin);
+					userOptions(superUser, normalUser, userName, isSuperUser);
+				}
+				else if (user.getRole().equals("normal_user")) {
+					userOptions(superUser, normalUser, userName, isSuperUser);
 				}
 				break;
 			} else {
@@ -85,15 +92,15 @@ public class UserService {
 		}
 	}
 
-	public void userOptions(User user, Boolean isSuperUser, Boolean initialLogin) {
-		if (isSuperUser && initialLogin == false) {
+	public void userOptions(SuperUser superUser, NormalUser normalUser, String userName, Boolean isSuperUser) {
+		if (isSuperUser) {
 			int superUserSelector = userGuiSelector(English.SUPER_USER_GUI);
 			switch (superUserSelector) {
 			case 0:
 				String otherUserSelected = askUser(English.CHANGE_USER);
 				try {
-					setUsers(FileService.populateUsersFromFile(FileInterface.standardFileName));
-					getUserByUserName(otherUserSelected, isSuperUser, initialLogin);
+					setUsers(FIleInput.populateUsersFromFile(FileInterface.standardFileName));
+					getUserByUserName(superUser, normalUser, userName, isSuperUser);
 					break;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -102,7 +109,8 @@ public class UserService {
 
 			case 1:
 					String changeUsername = askUser(English.UPDATE_USER_NAME);
-					user.setUserName(changeUsername);
+					superUser.setUserName(changeUsername);
+					changeUsername = userName;
 					try {
 						FileOutputClass.writeFile(users);
 					} catch (IOException e) {
@@ -112,7 +120,7 @@ public class UserService {
 				break;
 			case 2:
 				String changePassword = askUser(English.UPDATE_PASSWORD);
-				user.setPassword(changePassword);
+				superUser.setPassword(changePassword);
 				try {
 					FileOutputClass.writeFile(users);
 				} catch (IOException e) {
@@ -122,10 +130,9 @@ public class UserService {
 				break;
 			case 3:
 				String changeName = askUser(English.UPDATE_USER_NAME);
-				user.setName(changeName);
+				superUser.setName(changeName);
 				try {
 					FileOutputClass.writeFile(users);
-					initialLogin = false;
 					if (isSuperUser) {
 						return;
 					}
@@ -146,7 +153,7 @@ public class UserService {
 			switch (normalUserSelector) {
 			case 1:
 				String changeUsername = askUser(English.UPDATE_USER_NAME);
-				user.setUserName(changeUsername);
+				normalUser.setUserName(changeUsername);
 				try {
 					FileOutputClass.writeFile(users);
 				} catch (IOException e) {
@@ -155,7 +162,7 @@ public class UserService {
 				}				break;
 			case 2:
 				String changePassword = askUser(English.UPDATE_PASSWORD);
-				user.setPassword(changePassword);
+				normalUser.setPassword(changePassword);
 				try {
 					FileOutputClass.writeFile(users);
 				} catch (IOException e) {
@@ -164,10 +171,9 @@ public class UserService {
 				}				break;
 			case 3:
 				String changeName = askUser(English.UPDATE_NAME);
-				user.setName(changeName);
+				normalUser.setName(changeName);
 				try {
 					FileOutputClass.writeFile(users);
-					initialLogin = false;
 					
 				} catch (IOException e) {
 					System.out.println("Output not working");

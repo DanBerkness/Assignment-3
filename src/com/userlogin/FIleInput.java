@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileService {
+public class FIleInput {
 
 	public static User[] populateUsersFromFile(String filepath) throws IOException { 
 		User[] users = null;
