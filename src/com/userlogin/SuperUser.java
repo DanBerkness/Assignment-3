@@ -1,6 +1,11 @@
 package com.userlogin;
 
 public class SuperUser extends User {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public SuperUser(String userName, String password, String name) {
 		this.setUserName(userName);
 		this.setPassword(password);

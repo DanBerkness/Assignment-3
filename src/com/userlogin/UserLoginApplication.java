@@ -15,6 +15,6 @@ public class UserLoginApplication {
 		
 		userService1.setUsers(FIleInput.populateUsersFromFile(FileInterface.standardFileName));
 		userService1.manageLoginAttempts(superUser, normalUser, user, userName, userService1, isSuperUser);
-		userService1.userOptions(superUser, normalUser, userName, isSuperUser);
+		userService1.userOptions(superUser, normalUser, isSuperUser);
 	}
 }

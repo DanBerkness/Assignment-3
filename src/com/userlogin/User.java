@@ -2,7 +2,7 @@ package com.userlogin;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable, Comparable<User>{
 	public static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;
@@ -48,6 +48,16 @@ public class User implements Serializable{
 	public void setUsers(User[] populateUsersFromFile) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public int compareTo(User that) {
+		if (this.name.compareTo(that.name)) {
+			return -1;
+		}else if (this.name.equals(that.name)){
+			return 0;
+		}else {
+			return 1;
+		}
 	}
 
 }

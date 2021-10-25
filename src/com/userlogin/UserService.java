@@ -31,32 +31,31 @@ public class UserService {
 		this.users = users;
 	}
 
-	public User getUserByUsernameAndPassword(String userName, String password) {
+	public User getUserByUsernameAndPassword(String inputUserName, String inputPassword) {
 		for (User user : users) {
 			user.getUserName();
-			if (userName.equalsIgnoreCase(user.getUserName()) && password.equals(user.getPassword())) {
-				userName = user.getName();
+			if (inputUserName.equalsIgnoreCase(user.getUserName()) && inputPassword.equals(user.getPassword())) {
+				
 				return user;
 			}
 		}
 		return null;
 	}
 
-	public User getUserByUserName(SuperUser superUser, NormalUser normalUser, String userName, Boolean isSuperUser) {
+	public User getUserByUserName(SuperUser superUser, NormalUser normalUser, String otherUserSelected, Boolean isSuperUser) {
 		for (User user : users) {
-			System.out.println(userName);
-			if (userName.equalsIgnoreCase(user.getUserName())) {
+			if (otherUserSelected.equalsIgnoreCase(user.getUserName())) {
 				if (user != null) {
 					if (user.getRole().equals("super_user")) {
 						System.out.println("Welcome Super user " + superUser.getName());
 						superUser = new SuperUser(superUser.getUserName(), superUser.getPassword(), superUser.getName());
 						isSuperUser = true;
-						userOptions(superUser, normalUser, userName, isSuperUser);
+						userOptions(superUser, normalUser, isSuperUser);
 					} else {
 						System.out.println("Welcome " + normalUser.getName());
 						isSuperUser = false;
 						normalUser = new NormalUser(normalUser.getUserName(), normalUser.getPassword(), normalUser.getName());
-						userOptions(superUser, normalUser, userName, isSuperUser);
+						userOptions(superUser, normalUser, isSuperUser);
 					}
 					return user;
 				}
@@ -77,12 +76,12 @@ public class UserService {
 			user = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
 			if (user != null) {
 				if (user.getRole().equals("super_user")) {
-					System.out.println("Welcome super user " + user.getName());
+					System.out.println("Welcome super user " + superUser.getName());
 					isSuperUser = true;
-					userOptions(superUser, normalUser, userName, isSuperUser);
+					userOptions(superUser, normalUser, isSuperUser);
 				}
 				else if (user.getRole().equals("normal_user")) {
-					userOptions(superUser, normalUser, userName, isSuperUser);
+					userOptions(superUser, normalUser, isSuperUser);
 				}
 				break;
 			} else {
@@ -92,15 +91,15 @@ public class UserService {
 		}
 	}
 
-	public void userOptions(SuperUser superUser, NormalUser normalUser, String userName, Boolean isSuperUser) {
+	public void userOptions(SuperUser superUser, NormalUser normalUser, Boolean isSuperUser) {
 		if (isSuperUser) {
 			int superUserSelector = userGuiSelector(English.SUPER_USER_GUI);
 			switch (superUserSelector) {
 			case 0:
-				String otherUserSelected = askUser(English.CHANGE_USER);
 				try {
+					String otherUserSelected = askUser(English.CHANGE_USER);
 					setUsers(FIleInput.populateUsersFromFile(FileInterface.standardFileName));
-					getUserByUserName(superUser, normalUser, userName, isSuperUser);
+					getUserByUserName(superUser, normalUser, otherUserSelected, isSuperUser);
 					break;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -110,7 +109,6 @@ public class UserService {
 			case 1:
 					String changeUsername = askUser(English.UPDATE_USER_NAME);
 					superUser.setUserName(changeUsername);
-					changeUsername = userName;
 					try {
 						FileOutputClass.writeFile(users);
 					} catch (IOException e) {

@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FIleInput {
 
@@ -25,11 +26,14 @@ public class FIleInput {
 				user.setName(dataLine[2]);
 				user.setRole(dataLine[3]);
 				users[userCtr] = user;
-				AssignUserRoles sortUsers = new AssignUserRoles();
-				sortUsers.superUsers(user, dataLine, users, userCtr);
+				AssignUserRoles userSort = new AssignUserRoles();
+				userSort.sortUsers(user, dataLine, users, userCtr);
 				userCtr++;
-				
 			}
+				for (User user : users) {
+					Arrays.sort(users);
+					System.out.println(user.getName());
+				}
 		
 	} catch (FileNotFoundException e) {
 		System.out.println("File not found!");

@@ -3,6 +3,7 @@ package com.userlogin;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class FileOutputClass {
@@ -12,7 +13,7 @@ public class FileOutputClass {
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(FileInterface.standardFileName));
-
+			
 
 			for (User user : users) {
 				writer.write(userService1.getCurrentUser(user));
