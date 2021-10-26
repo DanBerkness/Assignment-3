@@ -51,7 +51,7 @@ public class User implements Serializable, Comparable<User>{
 	}
 	@Override
 	public int compareTo(User that) {
-		if (this.name.compareTo(that.name)) {
+		if (this.name.compareTo(that.name)==0) {
 			return -1;
 		}else if (this.name.equals(that.name)){
 			return 0;

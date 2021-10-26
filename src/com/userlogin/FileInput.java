@@ -3,9 +3,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
-public class FIleInput {
+
+public class FileInput {
 
 	public static User[] populateUsersFromFile(String filepath) throws IOException { 
 		User[] users = null;
@@ -30,10 +30,7 @@ public class FIleInput {
 				userSort.sortUsers(user, dataLine, users, userCtr);
 				userCtr++;
 			}
-				for (User user : users) {
-					Arrays.sort(users);
-					System.out.println(user.getName());
-				}
+				
 		
 	} catch (FileNotFoundException e) {
 		System.out.println("File not found!");

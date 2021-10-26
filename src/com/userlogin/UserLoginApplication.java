@@ -9,12 +9,11 @@ public class UserLoginApplication {
 		User user = null;
 		UserService userService1 = new UserService();
 		Boolean isSuperUser = false;
-		SuperUser superUser = new SuperUser(null, null, null);
-		NormalUser normalUser = new NormalUser(null, null, null);
 		String userName = null;
+		boolean loggedInUser = false;
 		
-		userService1.setUsers(FIleInput.populateUsersFromFile(FileInterface.standardFileName));
-		userService1.manageLoginAttempts(superUser, normalUser, user, userName, userService1, isSuperUser);
-		userService1.userOptions(superUser, normalUser, isSuperUser);
+		userService1.setUsers(FileInput.populateUsersFromFile(FileInterface.standardFileName));
+		userService1.manageLoginAttempts(user, userName, userService1, isSuperUser);
+		userService1.userOptions(user, isSuperUser, loggedInUser);
 	}
 }
