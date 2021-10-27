@@ -115,39 +115,13 @@ public class UserService {
 				int normalUserSelector = userGuiSelector(English.NORMAL_USER_GUI);
 				switch (normalUserSelector) {
 				case 1:
-					String changeUsername = userQuestion(English.UPDATE_USER_NAME);
-					System.out.println(user.getUserName());
-					user.setUserName(changeUsername);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);
-					} catch (IOException e) {
-						System.out.println("NormalUser case 1 error.");
-						e.printStackTrace();
-					}
+					updateUsername(user);
 					break;
 				case 2:
-					String changePassword = userQuestion(English.UPDATE_PASSWORD);
-					user.setPassword(changePassword);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);
-					} catch (IOException e) {
-						System.out.println("NormalUser case 2 error.");
-						e.printStackTrace();
-					}
+					updatePassword(user);
 					break;
 				case 3:
-					String changeName = userQuestion(English.UPDATE_NAME);
-					user.setName(changeName);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);
-
-					} catch (IOException e) {
-						System.out.println("NormalUser case 3 error.");
-						e.printStackTrace();
-					}
+					updateName(user);
 					break;
 				case 4:
 					System.exit(1);
