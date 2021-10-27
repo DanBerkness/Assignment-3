@@ -1,8 +1,8 @@
-package com.userlogin;
+package c.userloginapplication;
 import java.io.IOException;
 
 
-public class UserLoginApplication {
+public class Assignment4App {
 
 	public static void main(String[] args) throws IOException {
 

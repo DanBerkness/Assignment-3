@@ -1,4 +1,4 @@
-package com.userlogin;
+package c.userloginapplication;
 
 public class SuperUser extends User {
 	/**

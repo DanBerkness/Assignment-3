@@ -1,4 +1,4 @@
-package com.userlogin;
+package c.userloginapplication;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

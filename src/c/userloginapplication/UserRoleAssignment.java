@@ -1,8 +1,8 @@
-package com.userlogin;
+package c.userloginapplication;
 
 import java.util.Arrays;
 
-public class AssignUserRoles {
+public class UserRoleAssignment {
 	public void sortUsers(User user, String[] dataLine, User[] users, int userCtr) {
 
 		if (user.getRole().equals("super_user")) {

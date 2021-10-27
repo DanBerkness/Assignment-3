@@ -1,4 +1,4 @@
-package com.userlogin;
+package c.userloginapplication;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -26,7 +26,7 @@ public class FileInput {
 				user.setName(dataLine[2]);
 				user.setRole(dataLine[3]);
 				users[userCtr] = user;
-				AssignUserRoles userSort = new AssignUserRoles();
+				UserRoleAssignment userSort = new UserRoleAssignment();
 				userSort.sortUsers(user, dataLine, users, userCtr);
 				userCtr++;
 			}
