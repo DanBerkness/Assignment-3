@@ -14,6 +14,6 @@ public class Assignment4App {
 		
 		userService1.setUsers(FileInput.populateUsersFromFile(FileInterface.standardFileName));
 		userService1.manageLoginAttempts(user, userName, userService1, isSuperUser);
-		userService1.userOptions(user, isSuperUser, loggedInUser);
+		userService1.showUserOptions(user, isSuperUser, loggedInUser);
 	}
 }

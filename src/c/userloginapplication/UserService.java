@@ -8,7 +8,7 @@ public class UserService {
 	Scanner scanner = new Scanner(System.in);
 	private User[] users = new User[4];
 
-	public String askUser(String question) {
+	public String userQuestion(String question) {
 		System.out.println(question);
 		return scanner.next();
 	}
@@ -44,11 +44,11 @@ public class UserService {
 					if (user.getRole().equals("super_user")) {
 						System.out.println("Welcome Super user " + user.getName());
 						isSuperUser = true;
-						userOptions(user, isSuperUser, loggedInUser);
+						showUserOptions(user, isSuperUser, loggedInUser);
 					} else {
 						System.out.println("Welcome " + user.getName());
 						isSuperUser = false;
-						userOptions(user, isSuperUser, loggedInUser);
+						showUserOptions(user, isSuperUser, loggedInUser);
 					}
 					System.out.println("user select error");
 					return user;
@@ -65,8 +65,8 @@ public class UserService {
 				System.out.println(English.TOO_MANY_ATTEMPTS);
 				System.exit(i);
 			}
-			String inputUserName = userService1.askUser(English.ENTER_EMAIL);
-			String inputPassword = userService1.askUser(English.ENTER_PASSWORD);
+			String inputUserName = userService1.userQuestion(English.ENTER_EMAIL);
+			String inputPassword = userService1.userQuestion(English.ENTER_PASSWORD);
 
 			user = userService1.getUserByUsernameAndPassword(inputUserName, inputPassword);
 			if (user != null) {
@@ -74,10 +74,10 @@ public class UserService {
 				if (user.getRole().equals("super_user")) {
 					System.out.println("Welcome super user " + user.getName());
 					isSuperUser = true;
-					userOptions(user, isSuperUser, loggedInUser);
+					showUserOptions(user, isSuperUser, loggedInUser);
 				} else if (user.getRole().equals("normal_user")) {
 					System.out.println("Welcome normal user " + user.getName());
-					userOptions(user, isSuperUser, loggedInUser);
+					showUserOptions(user, isSuperUser, loggedInUser);
 				}
 				break;
 			} else {
@@ -87,54 +87,22 @@ public class UserService {
 		}
 	}
 
-	public void userOptions(User user, Boolean isSuperUser, boolean loggedInUser) {
+	public void showUserOptions(User user, Boolean isSuperUser, boolean loggedInUser) {
 		while (loggedInUser) {
 			if (isSuperUser) {
 				int superUserSelector = userGuiSelector(English.SUPER_USER_GUI);
 				switch (superUserSelector) {
 				case 0:
-					try {
-						String otherUserSelected = askUser(English.CHANGE_USER);
-						setUsers(FileInput.populateUsersFromFile(FileInterface.standardFileName));
-						getUserByUserName(otherUserSelected, isSuperUser, loggedInUser);
-					} catch (IOException e) {
-						System.out.println("SuperUser case 0 error.");
-						e.printStackTrace();
-					}
-
+					changeUser(isSuperUser, loggedInUser);
 					break;
 				case 1:
-					String changeUsername = askUser(English.UPDATE_USER_NAME);
-					user.setUserName(changeUsername);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);
-					} catch (IOException e) {
-						System.out.println("SuperUser case 1 error.");
-						e.printStackTrace();
-					}
+					updateUsername(user);
 					break;
 				case 2:
-					String changePassword = askUser(English.UPDATE_PASSWORD);
-					user.setPassword(changePassword);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);
-					} catch (IOException e) {
-						System.out.println("SuperUser case 2 error.");
-						e.printStackTrace();
-					}
+					updatePassword(user);
 					break;
 				case 3:
-					String changeName = askUser(English.UPDATE_NAME);
-					user.setName(changeName);
-					try {
-						Arrays.sort(users);
-						FileOutputClass.writeFile(users);	
-					}catch (IOException e) {
-						System.out.println("SuperUser case 3 error.");
-						e.printStackTrace();
-					}
+					updateName(user);
 					break;
 				case 4:
 					System.exit(1);
@@ -147,7 +115,7 @@ public class UserService {
 				int normalUserSelector = userGuiSelector(English.NORMAL_USER_GUI);
 				switch (normalUserSelector) {
 				case 1:
-					String changeUsername = askUser(English.UPDATE_USER_NAME);
+					String changeUsername = userQuestion(English.UPDATE_USER_NAME);
 					System.out.println(user.getUserName());
 					user.setUserName(changeUsername);
 					try {
@@ -159,7 +127,7 @@ public class UserService {
 					}
 					break;
 				case 2:
-					String changePassword = askUser(English.UPDATE_PASSWORD);
+					String changePassword = userQuestion(English.UPDATE_PASSWORD);
 					user.setPassword(changePassword);
 					try {
 						Arrays.sort(users);
@@ -170,7 +138,7 @@ public class UserService {
 					}
 					break;
 				case 3:
-					String changeName = askUser(English.UPDATE_NAME);
+					String changeName = userQuestion(English.UPDATE_NAME);
 					user.setName(changeName);
 					try {
 						Arrays.sort(users);
@@ -188,6 +156,53 @@ public class UserService {
 					break;
 				}
 			}
+		}
+	}
+
+	private void updateName(User user) {
+		String changeName = userQuestion(English.UPDATE_NAME);
+		user.setName(changeName);
+		try {
+			Arrays.sort(users);
+			FileOutputClass.writeFile(users);	
+		}catch (IOException e) {
+			System.out.println("SuperUser case 3 error.");
+			e.printStackTrace();
+		}
+	}
+
+	private void updatePassword(User user) {
+		String changePassword = userQuestion(English.UPDATE_PASSWORD);
+		user.setPassword(changePassword);
+		try {
+			Arrays.sort(users);
+			FileOutputClass.writeFile(users);
+		} catch (IOException e) {
+			System.out.println("SuperUser case 2 error.");
+			e.printStackTrace();
+		}
+	}
+
+	private void updateUsername(User user) {
+		String changeUsername = userQuestion(English.UPDATE_USER_NAME);
+		user.setUserName(changeUsername);
+		try {
+			Arrays.sort(users);
+			FileOutputClass.writeFile(users);
+		} catch (IOException e) {
+			System.out.println("SuperUser case 1 error.");
+			e.printStackTrace();
+		}
+	}
+
+	private void changeUser(Boolean isSuperUser, boolean loggedInUser) {
+		try {
+			String otherUserSelected = userQuestion(English.CHANGE_USER);
+			setUsers(FileInput.populateUsersFromFile(FileInterface.standardFileName));
+			getUserByUserName(otherUserSelected, isSuperUser, loggedInUser);
+		} catch (IOException e) {
+			System.out.println("SuperUser case 0 error.");
+			e.printStackTrace();
 		}
 	}
 
