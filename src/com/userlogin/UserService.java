@@ -118,6 +118,7 @@ public class UserService {
 					String changePassword = askUser(English.UPDATE_PASSWORD);
 					user.setPassword(changePassword);
 					try {
+						Arrays.sort(users);
 						FileOutputClass.writeFile(users);
 					} catch (IOException e) {
 						System.out.println("SuperUser case 2 error.");
@@ -128,6 +129,7 @@ public class UserService {
 					String changeName = askUser(English.UPDATE_NAME);
 					user.setName(changeName);
 					try {
+						Arrays.sort(users);
 						FileOutputClass.writeFile(users);	
 					}catch (IOException e) {
 						System.out.println("SuperUser case 3 error.");
@@ -147,7 +149,6 @@ public class UserService {
 				case 1:
 					String changeUsername = askUser(English.UPDATE_USER_NAME);
 					System.out.println(user.getUserName());
-
 					user.setUserName(changeUsername);
 					try {
 						Arrays.sort(users);
@@ -161,6 +162,7 @@ public class UserService {
 					String changePassword = askUser(English.UPDATE_PASSWORD);
 					user.setPassword(changePassword);
 					try {
+						Arrays.sort(users);
 						FileOutputClass.writeFile(users);
 					} catch (IOException e) {
 						System.out.println("NormalUser case 2 error.");
@@ -171,6 +173,7 @@ public class UserService {
 					String changeName = askUser(English.UPDATE_NAME);
 					user.setName(changeName);
 					try {
+						Arrays.sort(users);
 						FileOutputClass.writeFile(users);
 
 					} catch (IOException e) {
